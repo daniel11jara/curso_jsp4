@@ -11,7 +11,7 @@ import java.io.IOException;
 import dao.DAOLoginRepository;
 
 
-@WebServlet(urlPatterns = {"/principal/ServltLogin", "/ServltLogin"})
+@WebServlet(urlPatterns = {"/principal/ServltLogin", "/ServltLogin"})//atraves do action='ServletLogin' pegamos os dados do formulario
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -28,7 +28,7 @@ public class ServletLogin extends HttpServlet {
 
 	//recebe os dados peloo formulario
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String login = request.getParameter("login");
+		String login = request.getParameter("login");//atraves do name='login' do input que pegamos os dados
 		String senha = request.getParameter("senha");
 		String url = request.getParameter("url");
 		
