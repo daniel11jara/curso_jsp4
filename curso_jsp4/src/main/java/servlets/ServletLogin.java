@@ -24,6 +24,8 @@ public class ServletLogin extends HttpServlet {
 
 	//recebe os dados da url em parametros
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//para nao ficar a tela em branco, chamando o dopost
+		doPost(request, response);
 	}
 
 	//recebe os dados peloo formulario
