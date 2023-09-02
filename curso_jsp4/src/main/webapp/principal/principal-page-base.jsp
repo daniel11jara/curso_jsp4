@@ -37,7 +37,7 @@
                                     <!-- Page-body start -->
                                     <div class="page-body">
                                         <div class="row">
-                                      	
+                                      		<h1>PAGINA BASE</h1>
                                       	</div>
                                     </div>
                                     <!-- Page-body end -->
