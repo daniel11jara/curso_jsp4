@@ -29,7 +29,7 @@ public class ServletLogin extends HttpServlet {
 		
 		//aula 26
 		//quando clica no botao de logout o usuario sai da tela e volta para a tela de login
-		if (acao != null && acao.isEmpty() && acao.equalsIgnoreCase("logout")) {
+		if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("logout")) {
 			//invalidando a sessao
 			request.getSession().invalidate();
 			
