@@ -47,24 +47,32 @@
                                                     <div class="card-block">
                                                         <h4 class="sub-title">CADASTRO DO USUARIO</h4>
                                       		
-                                      		<form class="form-material">
+                                      		<form class="form-material"  action="<%= request.getContextPath() %>/ServletUsuarioController" method="post">
                                                             <div class="form-group form-default">
-                                                                <input type="text" name="id" id="id"  class="form-control" required="" readonly="readonly">
+                                                                <input type="text" name="id" id="id"  class="form-control" readonly="readonly">
                                                                 <span class="form-bar"></span>
                                                                 <label class="float-label">ID:</label>
                                                             </div>
                                                             <div class="form-group form-default">
-                                                                <input type="text" name="nome" id="nome" class="form-control" required="" >
+                                                                <input type="text" name="nome" id="nome" class="form-control" required="required" >
                                                                 <span class="form-bar"></span>
                                                                 <label class="float-label">Nome:</label>
                                                             </div>
                                                             <div class="form-group form-default">
-                                                                <input type="email" name="email" id="email" class="form-control" required="" autocomplete="off">
+                                                                <input type="email" name="email" id="email" class="form-control" required="required" autocomplete="off">
                                                                 <span class="form-bar"></span>
                                                                 <label class="float-label">Email:</label>
                                                             </div>
+                                                            
                                                             <div class="form-group form-default">
-                                                                <input type="password" name="senha" id="senha" class="form-control" required="" autocomplete="off">
+                                                                <input type="text" name="login" id="login" class="form-control" required="required" autocomplete="off">
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">Login</label>
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="form-group form-default">
+                                                                <input type="password" name="senha" id="senha" class="form-control" required="required" autocomplete="off">
                                                                 <span class="form-bar"></span>
                                                                 <label class="float-label">Senha</label>
                                                             </div>
