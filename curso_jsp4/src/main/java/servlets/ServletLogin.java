@@ -67,6 +67,8 @@ public class ServletLogin extends HttpServlet {
 					
 					//mantendo o usuario logado no sistema
 					request.getSession().setAttribute("usuario", modelLogin.getLogin());
+					//cria um objeto de sessao--defini um atributo chamado usuario--objeto que associa o atributo 
+					//tudo isso armazenar informacoes do usuario naquela sessao
 					
 					//antes de redirecionar faz uma validacao dessa url
 					//caso o usuario tente acessar diretamente a pagina principal pela url, vai impedir pedindo para logar
