@@ -51,7 +51,7 @@ public class ServletLogin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String login = request.getParameter("login");//atraves do name='login' do input que pegamos os dados
 		String senha = request.getParameter("senha");
-		String url = request.getParameter("url");
+		String url = request.getParameter("url");//esse parametro url esta sendo pego do input escondido no index.jsp - aula 15 
 		
 		try {
 			
