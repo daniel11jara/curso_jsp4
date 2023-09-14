@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import connection.SingleConnectionBanco;
 import model.ModelLogin;
@@ -14,10 +15,9 @@ public class DAOUsuarioRepository {
 		connection = SingleConnectionBanco.getConnection();
 	}
 	
+	//metodo sem retorna apenas grava o usuario
 	//passando como parametros o objeto responsavel que pega os dados do usuario
 	public void gravarUsuario(ModelLogin objeto) throws Exception {
-		
-		
 			
 			//inserir na tabela model logins os campos                      e os valores que vao ser passados
 			String sql = "INSERT INTO model_login (login, senha, nome, email) VALUES (?, ?, ?, ?);";
@@ -32,11 +32,28 @@ public class DAOUsuarioRepository {
 			//executando a instrucao sql
 			preparedSql.execute();
 			connection.commit();
+		
+	}
+	
+	public ModelLogin consultarUsuario(String login) throws Exception {
+		
+		ModelLogin modelLogin = new ModelLogin();
+		
+		String sql = "select * from model_login where upper(login) = upper('?')";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, login);
+		
+		ResultSet resultado = statement.executeQuery();
+		
+		while (resultado.next()) {
+			modelLogin.setId(resultado.getLong("id"));
+			modelLogin.setEmail(resultado.getString("email"));
 			
-		
 			
+		}
 		
-		
+		return modelLogin;
+				
 	}
 
 }
