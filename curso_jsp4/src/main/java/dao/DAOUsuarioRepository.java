@@ -17,7 +17,7 @@ public class DAOUsuarioRepository {
 	
 	//metodo sem retorna apenas grava o usuario
 	//passando como parametros o objeto responsavel que pega os dados do usuario
-	public void gravarUsuario(ModelLogin objeto) throws Exception {
+	public ModelLogin gravarUsuario(ModelLogin objeto) throws Exception {
 			
 			//inserir na tabela model logins os campos                      e os valores que vao ser passados
 			String sql = "INSERT INTO model_login (login, senha, nome, email) VALUES (?, ?, ?, ?);";
@@ -32,23 +32,32 @@ public class DAOUsuarioRepository {
 			//executando a instrucao sql
 			preparedSql.execute();
 			connection.commit();
+			
+			//consultando o usuario pelo login - reaproveitando o codigo abaixo
+			return this.consultarUsuario(objeto.getLogin());
 		
 	}
 	
 	public ModelLogin consultarUsuario(String login) throws Exception {
 		
+		//iniciando o objeto
 		ModelLogin modelLogin = new ModelLogin();
 		
 		String sql = "select * from model_login where upper(login) = upper('?')";
+		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, login);
 		
+		//executando o sql
 		ResultSet resultado = statement.executeQuery();
 		
+		//se tem resultado
 		while (resultado.next()) {
 			modelLogin.setId(resultado.getLong("id"));
 			modelLogin.setEmail(resultado.getString("email"));
-			
+			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setSenha(resultado.getString("senha"));
+			modelLogin.setNome(resultado.getString("nome"));
 			
 		}
 		
