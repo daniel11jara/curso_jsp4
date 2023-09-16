@@ -43,12 +43,15 @@ public class DAOUsuarioRepository {
 		//iniciando o objeto
 		ModelLogin modelLogin = new ModelLogin();
 		
-		String sql = "select * from model_login where upper(login) = upper('?')";
+		String sql = "select * from model_login where upper(login) = upper('"+login+"')";
 		
+		//preparando o sql
 		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setString(1, login);
+		//statement.setString(1, login); essa linha retirada na aula 35
 		
 		//executando o sql
+		//executeQuery = selecao de dados
+		//updateQuery = modificacao de dados
 		ResultSet resultado = statement.executeQuery();
 		
 		//se tem resultado
@@ -63,6 +66,26 @@ public class DAOUsuarioRepository {
 		
 		return modelLogin;
 				
+	}
+	
+	//metodo que vai ver se o usuario logado ja existe
+	public boolean validarLogin(String login) throws Exception {
+		
+		String sql = "select count (1) > 0 as existe from model_login where upper(login) = upper('"+login+"')";
+		
+		PreparedStatement statement = connection.prepareStatement(sql);
+				
+		ResultSet resultado = statement.executeQuery();
+		
+		//tinha colocado um if, mas depois retirou
+		//para entrar nos resultados do sql
+		resultado.next();
+			
+		return resultado.getBoolean("existe");
+		
+		
+		
+		
 	}
 
 }

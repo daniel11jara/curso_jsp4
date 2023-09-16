@@ -35,6 +35,9 @@ public class ServletUsuarioController extends HttpServlet {
 		
 		try {
 			
+			//variavel de mensagem
+			String msg = "operacao realizada com sucesso";
+			
 			//pegando os parametros do formulario no usuario.jsp
 			String id = request.getParameter("id");
 			String nome = request.getParameter("nome");
@@ -53,12 +56,25 @@ public class ServletUsuarioController extends HttpServlet {
 			modelLogin.setLogin(login);
 			modelLogin.setSenha(senha);
 			
-			daoUsuarioRepository.gravarUsuario(modelLogin);
+			//aula 36
+			//fazendo a validacao do login
+			//se ja existe o login repetido e                            esta tentando gravar um novo registro, vai aparecer uma mensagem
+			//sao 2 condicoes: ja existe e for nulo
+			if (daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
+				
+				msg = "Ja existe usuario com o mesmo login, informe outro login";
+				
+			}else {//se as condicoes nao forem atendidas cai no else e grava o novo usuario
+				
+				modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
+			}
+			
+			
 			
 			//redirecionando
 			RequestDispatcher redireciona = request.getRequestDispatcher("principal/usuario.jsp");
 			//pegando o atributo modelLogin do objeto modelLogin
-			request.setAttribute("msg", "operacao realizada com sucesso");
+			request.setAttribute("msg", msg);
 			request.setAttribute("modelLogin", modelLogin);
 			redireciona.forward(request, response);
 			
