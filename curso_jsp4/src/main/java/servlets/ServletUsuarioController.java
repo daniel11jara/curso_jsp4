@@ -66,6 +66,12 @@ public class ServletUsuarioController extends HttpServlet {
 				
 			}else {//se as condicoes nao forem atendidas cai no else e grava o novo usuario
 				
+				if (modelLogin.isNovo()) {
+					msg = "Gravado com sucesso";
+				}else {
+					msg = "Atualizado com sucesso";
+				}
+				
 				modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
 			}
 			
