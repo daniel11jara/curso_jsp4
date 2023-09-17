@@ -27,7 +27,41 @@ public class ServletUsuarioController extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
+		
+		try {//deletando - aula 39
+			
+			//pegando o input escondido da linha 52
+			String acao = request.getParameter("acao");
+			
+			if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
+				
+				String idUser = request.getParameter("id");
+				
+				daoUsuarioRepository.deletarUser(idUser);
+				
+				request.setAttribute("msg", "Excluido com Sucesso");
+				
+				
+				
+			}
+			
+			//deletando ou nao volta para a mesma pagina
+			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+			
+		} catch (Exception e) {
+			//esse comando imprimi o erro no console do eclipse
+			e.printStackTrace();
+			
+			//fazendo o redirecionamento para a pagina de erro.jsp
+			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
+			request.setAttribute("msg", e.getMessage());
+			redirecionar.forward(request, response);
+		}
+		
+		}
+			
+		
+	
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
