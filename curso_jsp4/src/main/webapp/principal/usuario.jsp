@@ -154,7 +154,20 @@ function buscarUsuario(){
 	var nomeBusca = document.getElementById("nomeBusca").value;
 	
 	if(nomeBusca != null && nomeBusca != '' && nomeBusca.trim() != ''){
-		alert(nomeBusca)
+		
+		var urlAction = document.getElementById('formUser').action;
+		
+		$.ajax({
+			method:"get",
+			url : urlAction,
+			data : "nomeBusca" + nomeBusca + '&acao=buscarUserAjax',
+			success : function (response) {
+				
+				
+			} 
+		}).fail(function(xhr, status, errorThrown){
+			alert('Erro ao buscar usuario por nome: ' + xhr.responseText)
+		});
 	}
 
 }

@@ -43,6 +43,15 @@ public class ServletUsuarioController extends HttpServlet {
 				
 				
 				
+			} 
+			
+			else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
+				
+				String nomeBusca = request.getParameter("nomeBusca");
+				System.out.println(nomeBusca);
+				
+				//daoUsuarioRepository.deletarUser(idUser);
+				
 			}
 			
 			//deletando ou nao volta para a mesma pagina
