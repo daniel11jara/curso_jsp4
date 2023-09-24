@@ -119,12 +119,12 @@
       <div class="input-group mb-3">
   <input type="text" class="form-control" placeholder="Nome" aria-label="nome"  id = "nomeBusca"  aria-describedby="basic-addon2">
   <div class="input-group-append">
-    <button class="btn btn-success" type="button" onclick="buscarUsuario">Buscar</button>
+    <button class="btn btn-success" type="button" onclick="buscarUsuario();">Buscar</button>
   </div>
 </div>
 
-<div style="300px" overflow = scroll>
-<table class="table" id="tabelaresultados	">
+<div style = "height: 300px; overflow : scroll;">
+<table class="table" id="tabelaresultados">
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -167,13 +167,15 @@ function buscarUsuario(){
 				
 				var json = JSON.parse(response);
 				
+				console.info(json);
+				
 				$('#tabelaresultados > tbody > tr').remove();
 				
 				for (var p = 0; p < json.length; p++){
 					$('#tabelaresultados > tbody').append('<tr> <td>' +json[p].id+ '</td> <td>' +json[p].nome+ '</td> <td><button type="button" class="btn btn-info">Ver</button></td> </tr>');
 				}
 				
-				document.getElementById('tabelaresultados').textContent = 'Resultados' + json.length;
+				document.getElementById('totalresultados').textContent = 'Resultados: ' + json.length;
 			} 
 		}).fail(function(xhr, status, errorThrown){
 			alert('Erro ao buscar usuario por nome: ' + xhr.responseText)
