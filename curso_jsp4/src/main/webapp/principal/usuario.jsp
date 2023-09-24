@@ -167,8 +167,6 @@ function buscarUsuario(){
 				
 				var json = JSON.parse(response);
 				
-				console.info(json);
-				
 				$('#tabelaresultados > tbody > tr').remove();
 				
 				for (var p = 0; p < json.length; p++){

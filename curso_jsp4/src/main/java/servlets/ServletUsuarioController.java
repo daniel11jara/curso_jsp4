@@ -48,12 +48,15 @@ public class ServletUsuarioController extends HttpServlet {
 				
 			} 
 			
+			//fazendo a consulta do modal (aula 45)
 			else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
 				
 				String nomeBusca = request.getParameter("nomeBusca");
 				
 				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca);
+				System.out.println(dadosJsonUser);
 				
+				//esse objectMapper vem da depedencia colocada no pom.xml jackson databind
 				ObjectMapper mapper  = new ObjectMapper();
 				String json = mapper.writeValueAsString(dadosJsonUser);
 				response.getWriter().write(json);

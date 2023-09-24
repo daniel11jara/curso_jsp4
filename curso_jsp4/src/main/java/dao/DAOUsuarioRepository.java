@@ -58,11 +58,12 @@ public class DAOUsuarioRepository {
 	}
 	
 	
-	
+	//esse metodo fica responsavel pela lista que aparece no modal (aula 45)
 	public List<ModelLogin> consultaUsuarioList(String nome) throws Exception {
 		
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 		
+		//upper = como se fosse o ignoreCase, ignora se e maiuscula ou minuscula
 		String sql = "select * from model_login where upper (nome) like upper(?)";
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
@@ -70,8 +71,10 @@ public class DAOUsuarioRepository {
 		
 		ResultSet resultado = statement.executeQuery();
 		
+		//varrendo as linhas da lista
 		while (resultado.next()) {
 			
+			//para cada linha precisa iniciar um novo objeto para colocar na lista
 			ModelLogin modelLogin = new ModelLogin();
 			
 			//preenchendo o objeto
