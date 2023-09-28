@@ -7,15 +7,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.ModelLogin;
-
 import java.io.IOException;
 import java.util.List;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import dao.DAOUsuarioRepository;
 
-
+//@WebServlet(urlPatterns = {"/ServletUsuarioController"})
 public class ServletUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -54,7 +51,6 @@ public class ServletUsuarioController extends HttpServlet {
 				String nomeBusca = request.getParameter("nomeBusca");
 				
 				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca);
-				System.out.println(dadosJsonUser);
 				
 				//esse objectMapper vem da depedencia colocada no pom.xml jackson databind
 				ObjectMapper mapper  = new ObjectMapper();
@@ -63,10 +59,12 @@ public class ServletUsuarioController extends HttpServlet {
 				
 				//daoUsuarioRepository.deletarUser(idUser);
 				
+			} else {
+				//deletando ou nao volta para a mesma pagina
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
 			
-			//deletando ou nao volta para a mesma pagina
-			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+			
 			
 		} catch (Exception e) {
 			//esse comando imprimi o erro no console do eclipse

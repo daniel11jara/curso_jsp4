@@ -152,6 +152,10 @@
 
 <script type="text/javascript">
 
+function verEditar(id){
+	alert(id);
+}
+
 function buscarUsuario(){
 	var nomeBusca = document.getElementById('nomeBusca').value;
 	
@@ -171,7 +175,7 @@ function buscarUsuario(){
 				
 				//for para imprimir na tela do modal a tabela com o nome buscado (aula 46)
 				for (var p = 0; p < json.length; p++){
-					$('#tabelaresultados > tbody').append('<tr> <td>' +json[p].id+ '</td> <td>' +json[p].nome+ '</td> <td><button type="button" class="btn btn-info">Ver</button></td> </tr>');
+					$('#tabelaresultados > tbody').append('<tr> <td>' +json[p].id+ '</td> <td>' +json[p].nome+ '</td> <td><button onclick="verEditar('+json[p].id')" type="button" class="btn btn-info">Ver</button></td> </tr>');
 				}
 				
 				//colocando na tela o total de nomes encontrados
