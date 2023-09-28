@@ -157,9 +157,14 @@ function verEditar(id){
 }
 
 function buscarUsuario(){
+	
+	//nomeBusca = o id do input do campo de busca
+	//pegando o nome do usuario digitado no campo de busca
 	var nomeBusca = document.getElementById('nomeBusca').value;
 	
+	//validacoes para buscar no banco de dados
 	if(nomeBusca != null && nomeBusca != '' && nomeBusca.trim() != ''){
+		alert(nomeBusca);
 		
 		var urlAction = document.getElementById('formUser').action;
 		
