@@ -152,6 +152,7 @@
 
 <script type="text/javascript">
 
+//aula 47
 function verEditar(id){
 	var urlAction = document.getElementById('formUser').action;
 	
