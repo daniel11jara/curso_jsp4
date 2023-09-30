@@ -122,6 +122,38 @@ public class DAOUsuarioRepository {
 				
 	}
 	
+	//AULA 47
+	public ModelLogin consultarUsuarioID(String id) throws Exception {
+		
+		//iniciando o objeto
+		ModelLogin modelLogin = new ModelLogin();
+		
+		String sql = "select * from model_login where id = ?";
+		
+		//preparando o sql
+		PreparedStatement statement = connection.prepareStatement(sql);
+		//statement.setString(1, login); essa linha retirada na aula 35
+		statement.setLong(1, Long.parseLong(id));
+		
+		//executando o sql
+		//executeQuery = selecao de dados
+		//updateQuery = modificacao de dados
+		ResultSet resultado = statement.executeQuery();
+		
+		//se tem resultado
+		while (resultado.next()) {
+			modelLogin.setId(resultado.getLong("id"));
+			modelLogin.setEmail(resultado.getString("email"));
+			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setSenha(resultado.getString("senha"));
+			modelLogin.setNome(resultado.getString("nome"));
+			
+		}
+		
+		return modelLogin;
+				
+	}
+	
 	//metodo que vai ver se o usuario logado ja existe
 	public boolean validarLogin(String login) throws Exception {
 		

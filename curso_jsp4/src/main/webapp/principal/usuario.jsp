@@ -153,7 +153,9 @@
 <script type="text/javascript">
 
 function verEditar(id){
-	alert(id);
+	var urlAction = document.getElementById('formUser').action;
+	
+	window.location.href = urlAction + '?acao=buscarEditar&id=' + id;
 }
 
 function buscarUsuario(){

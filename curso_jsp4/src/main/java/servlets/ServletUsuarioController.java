@@ -12,7 +12,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.DAOUsuarioRepository;
 
-//@WebServlet(urlPatterns = {"/ServletUsuarioController"})
+//@WebServlet("/ServletUsuarioController")
 public class ServletUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -59,7 +59,22 @@ public class ServletUsuarioController extends HttpServlet {
 				
 				//daoUsuarioRepository.deletarUser(idUser);
 				
-			} else {
+			} 
+			
+			//aula  47
+			else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarEditar")) {
+				String id = request.getParameter("id");
+				
+				ModelLogin modelLogin = daoUsuarioRepository.consultarUsuarioID(id);
+				
+				
+				//pegando o atributo modelLogin do objeto modelLogin
+				request.setAttribute("msg", "Usuario em edicao");
+				request.setAttribute("modelLogin", modelLogin);
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+			}
+			
+			else {
 				//deletando ou nao volta para a mesma pagina
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
