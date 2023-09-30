@@ -12,7 +12,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.DAOUsuarioRepository;
 
-@WebServlet("/ServletUsuarioController")
+//@WebServlet("/ServletUsuarioController")
 public class ServletUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -61,14 +61,12 @@ public class ServletUsuarioController extends HttpServlet {
 				
 			} 
 			
-			//aula  47
+			//aula  47 --- pegando a funcao javascript verEditar(id) do arquivo usuario.jsp
 			else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarEditar")) {
 				String id = request.getParameter("id");
 				
 				ModelLogin modelLogin = daoUsuarioRepository.consultarUsuarioID(id);
 				
-				
-				//pegando o atributo modelLogin do objeto modelLogin
 				request.setAttribute("msg", "Usuario em edicao");
 				request.setAttribute("modelLogin", modelLogin);
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
