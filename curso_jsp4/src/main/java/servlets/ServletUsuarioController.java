@@ -12,7 +12,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.DAOUsuarioRepository;
 
-//@WebServlet("/ServletUsuarioController")
+@WebServlet(urlPatterns = {"/ServletUsuarioController"})
 public class ServletUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -69,6 +69,16 @@ public class ServletUsuarioController extends HttpServlet {
 				
 				request.setAttribute("msg", "Usuario em edicao");
 				request.setAttribute("modelLogin", modelLogin);
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+			}
+			
+			//aula 49  --- pegando a funcao listarUser que esta no arquirvo navbarmainmenu.jsp--linha 52, onde tem o link da pag do usuario
+			else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUser")) {
+				
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+				
+				request.setAttribute("msg", "Usuarios carregados");
+				request.setAttribute("modelLogins", modelLogins);//criando uma nova variavel so para carregar a lista
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
 			

@@ -57,6 +57,38 @@ public class DAOUsuarioRepository {
 		
 	}
 	
+	//aula 49
+public List<ModelLogin> consultaUsuarioList() throws Exception {
+		
+		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
+		
+		//upper = como se fosse o ignoreCase, ignora se e maiuscula ou minuscula
+		String sql = "select * from model_login";
+		
+		PreparedStatement statement = connection.prepareStatement(sql);
+		
+		ResultSet resultado = statement.executeQuery();
+		
+		//varrendo as linhas da lista
+		while (resultado.next()) {
+			
+			//para cada linha precisa iniciar um novo objeto para colocar na lista
+			ModelLogin modelLogin = new ModelLogin();
+			
+			//preenchendo o objeto
+			modelLogin.setEmail(resultado.getString("email"));
+			modelLogin.setId(resultado.getLong("id"));
+			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setNome(resultado.getString("nome"));
+			//modelLogin.setSenha(resultado.getString("senha"));
+			
+			retorno.add(modelLogin);
+			
+		}
+		
+		return retorno;
+	}
+	
 	
 	//esse metodo fica responsavel pela lista que aparece no modal (aula 45)
 	public List<ModelLogin> consultaUsuarioList(String nome) throws Exception {

@@ -91,7 +91,7 @@
                                              </div>
                                              </div>
                                              </div>
-                                             <span>${msg}</span>
+                                             <span id = "msg">${msg}</span>
                                       	
                                     </div>
                                     <!-- Page-body end -->
@@ -107,7 +107,7 @@
     
 <jsp:include page="javascriptfile.jsp"></jsp:include> 
 
-
+<!-- MODAL -->>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
