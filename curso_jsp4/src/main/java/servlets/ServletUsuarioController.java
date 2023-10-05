@@ -12,7 +12,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.DAOUsuarioRepository;
 
-@WebServlet(urlPatterns = {"/ServletUsuarioController"})
+//@WebServlet(urlPatterns = {"/ServletUsuarioController"})
 public class ServletUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -39,8 +39,12 @@ public class ServletUsuarioController extends HttpServlet {
 				
 				daoUsuarioRepository.deletarUser(idUser);
 				
-				request.setAttribute("msg", "Excluido com Sucesso");
+				//aula 49
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+				request.setAttribute("modelLogins", modelLogins);
 				
+				request.setAttribute("msg", "Excluido com Sucesso");
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 				
 				
 			} 
@@ -67,6 +71,9 @@ public class ServletUsuarioController extends HttpServlet {
 				
 				ModelLogin modelLogin = daoUsuarioRepository.consultarUsuarioID(id);
 				
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+				request.setAttribute("modelLogins", modelLogins);
+				
 				request.setAttribute("msg", "Usuario em edicao");
 				request.setAttribute("modelLogin", modelLogin);
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
@@ -83,6 +90,10 @@ public class ServletUsuarioController extends HttpServlet {
 			}
 			
 			else {
+				
+				List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+				request.setAttribute("modelLogins", modelLogins);
+				
 				//deletando ou nao volta para a mesma pagina
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
@@ -150,7 +161,8 @@ public class ServletUsuarioController extends HttpServlet {
 				modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
 			}
 			
-			
+			List<ModelLogin> modelLogins = daoUsuarioRepository.consultaUsuarioList();
+			request.setAttribute("modelLogins", modelLogins);
 			
 			//redirecionando
 			RequestDispatcher redireciona = request.getRequestDispatcher("principal/usuario.jsp");
