@@ -62,8 +62,8 @@ public List<ModelLogin> consultaUsuarioList() throws Exception {
 		
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 		
-		//upper = como se fosse o ignoreCase, ignora se e maiuscula ou minuscula
-		String sql = "select * from model_login";
+		//selecionando todos menos o admin (aula 50)
+		String sql = "select * from model_login where useradmin is false";
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		
@@ -96,7 +96,7 @@ public List<ModelLogin> consultaUsuarioList() throws Exception {
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 		
 		//upper = como se fosse o ignoreCase, ignora se e maiuscula ou minuscula
-		String sql = "select * from model_login where upper (nome) like upper(?)";
+		String sql = "select * from model_login where upper (nome) like upper(?) and useradmin is false";
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, "%"+nome+"%" );
@@ -129,7 +129,7 @@ public List<ModelLogin> consultaUsuarioList() throws Exception {
 		//iniciando o objeto
 		ModelLogin modelLogin = new ModelLogin();
 		
-		String sql = "select * from model_login where upper(login) = upper('"+login+"')";
+		String sql = "select * from model_login where upper(login) = upper('"+login+"') and useradmin is false";
 		
 		//preparando o sql
 		PreparedStatement statement = connection.prepareStatement(sql);
@@ -160,7 +160,7 @@ public List<ModelLogin> consultaUsuarioList() throws Exception {
 		//iniciando o objeto
 		ModelLogin modelLogin = new ModelLogin();
 		
-		String sql = "select * from model_login where id = ?";
+		String sql = "select * from model_login where id = ? and useradmin is false";
 		
 		//preparando o sql
 		PreparedStatement statement = connection.prepareStatement(sql);
@@ -206,7 +206,7 @@ public List<ModelLogin> consultaUsuarioList() throws Exception {
 	//deletando -- aula 39
 	public void deletarUser(String idUser) throws SQLException {
 		
-		String sql = "DELETE FROM model_login WHERE id = ?";
+		String sql = "DELETE FROM model_login WHERE id = ? and useradmin is false";
 		
 		PreparedStatement prepareSql = connection.prepareStatement(sql);
 		prepareSql.setLong(1, Long.parseLong(idUser));
