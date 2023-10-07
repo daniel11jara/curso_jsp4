@@ -20,12 +20,13 @@ public class DAOUsuarioRepository {
 	
 	//metodo sem retorna apenas grava o usuario
 	//passando como parametros o objeto responsavel que pega os dados do usuario
-	public ModelLogin gravarUsuario(ModelLogin objeto) throws Exception {
+	//o parametro Long userLogado foi colocado na aula 51
+	public ModelLogin gravarUsuario(ModelLogin objeto, Long userLogado) throws Exception {
 		
 		if (objeto.isNovo()) {//se for novo usuario - aula 37
 			
 			//inserir na tabela model logins os campos                      e os valores que vao ser passados
-			String sql = "INSERT INTO model_login (login, senha, nome, email) VALUES (?, ?, ?, ?);";
+			String sql = "INSERT INTO model_login (login, senha, nome, email, usuario_id) VALUES (?, ?, ?, ?, ?);";
 			PreparedStatement preparedSql = connection.prepareStatement(sql);
 			
 			//cada campo recebe um --> campo 1 recebe login --> campo 2 recebe senha
@@ -33,6 +34,7 @@ public class DAOUsuarioRepository {
 			preparedSql.setString(2, objeto.getSenha());
 			preparedSql.setString(3, objeto.getNome());
 			preparedSql.setString(4, objeto.getEmail());
+			preparedSql.setLong(5, userLogado);
 			
 			//executando a instrucao sql
 			preparedSql.execute();
@@ -53,17 +55,17 @@ public class DAOUsuarioRepository {
 		}
 			
 			//consultando o usuario pelo login - reaproveitando o codigo abaixo
-			return this.consultarUsuario(objeto.getLogin());
+			return this.consultarUsuario(objeto.getLogin(), userLogado);
 		
 	}
 	
 	//aula 49
-public List<ModelLogin> consultaUsuarioList() throws Exception {
+public List<ModelLogin> consultaUsuarioList(Long userLogado) throws Exception {
 		
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 		
 		//selecionando todos menos o admin (aula 50)
-		String sql = "select * from model_login where useradmin is false";
+		String sql = "select * from model_login where useradmin is false and usuario_id = " + userLogado;
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		
@@ -91,15 +93,16 @@ public List<ModelLogin> consultaUsuarioList() throws Exception {
 	
 	
 	//esse metodo fica responsavel pela lista que aparece no modal (aula 45)
-	public List<ModelLogin> consultaUsuarioList(String nome) throws Exception {
+	public List<ModelLogin> consultaUsuarioList(String nome, Long userLogado) throws Exception {
 		
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 		
 		//upper = como se fosse o ignoreCase, ignora se e maiuscula ou minuscula
-		String sql = "select * from model_login where upper (nome) like upper(?) and useradmin is false";
+		String sql = "select * from model_login where upper (nome) like upper(?) and useradmin is false and usuario_id = ?";
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, "%"+nome+"%" );
+		statement.setLong(2, userLogado);
 		
 		ResultSet resultado = statement.executeQuery();
 		
@@ -124,7 +127,41 @@ public List<ModelLogin> consultaUsuarioList() throws Exception {
 	}
 	
 	
-	public ModelLogin consultarUsuario(String login) throws Exception {
+	//aula 51
+public ModelLogin consultarUsuarioLogado(String login) throws Exception {
+		
+		//iniciando o objeto
+		ModelLogin modelLogin = new ModelLogin();
+		
+		String sql = "select * from model_login where upper(login) = upper('"+login+"')";
+		
+		//preparando o sql
+		PreparedStatement statement = connection.prepareStatement(sql);
+		//statement.setString(1, login); essa linha retirada na aula 35
+		
+		//executando o sql
+		//executeQuery = selecao de dados
+		//updateQuery = modificacao de dados
+		ResultSet resultado = statement.executeQuery();
+		
+		//se tem resultado
+		while (resultado.next()) {
+			modelLogin.setId(resultado.getLong("id"));
+			modelLogin.setEmail(resultado.getString("email"));
+			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setSenha(resultado.getString("senha"));
+			modelLogin.setNome(resultado.getString("nome"));
+			
+		}
+		
+		return modelLogin;
+				
+	}
+	
+	
+	
+	//aula 51 - apenas consultando o login
+public ModelLogin consultarUsuario(String login) throws Exception {
 		
 		//iniciando o objeto
 		ModelLogin modelLogin = new ModelLogin();
@@ -154,18 +191,50 @@ public List<ModelLogin> consultaUsuarioList() throws Exception {
 				
 	}
 	
-	//AULA 47
-	public ModelLogin consultarUsuarioID(String id) throws Exception {
+	//mesmo metodo acima, mas consultando o login e tambem o userLogado
+	public ModelLogin consultarUsuario(String login, Long userLogado) throws Exception {
 		
 		//iniciando o objeto
 		ModelLogin modelLogin = new ModelLogin();
 		
-		String sql = "select * from model_login where id = ? and useradmin is false";
+		String sql = "select * from model_login where upper(login) = upper('"+login+"') and useradmin is false and usuario_id = " + userLogado;
+		
+		//preparando o sql
+		PreparedStatement statement = connection.prepareStatement(sql);
+		//statement.setString(1, login); essa linha retirada na aula 35
+		
+		//executando o sql
+		//executeQuery = selecao de dados
+		//updateQuery = modificacao de dados
+		ResultSet resultado = statement.executeQuery();
+		
+		//se tem resultado
+		while (resultado.next()) {
+			modelLogin.setId(resultado.getLong("id"));
+			modelLogin.setEmail(resultado.getString("email"));
+			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setSenha(resultado.getString("senha"));
+			modelLogin.setNome(resultado.getString("nome"));
+			
+		}
+		
+		return modelLogin;
+				
+	}
+	
+	//AULA 47
+	public ModelLogin consultarUsuarioID(String id, Long userLogado) throws Exception {
+		
+		//iniciando o objeto
+		ModelLogin modelLogin = new ModelLogin();
+		
+		String sql = "select * from model_login where id = ? and useradmin is false and usuario_id = ?";
 		
 		//preparando o sql
 		PreparedStatement statement = connection.prepareStatement(sql);
 		//statement.setString(1, login); essa linha retirada na aula 35
 		statement.setLong(1, Long.parseLong(id));
+		statement.setLong(2, userLogado);
 		
 		//executando o sql
 		//executeQuery = selecao de dados
