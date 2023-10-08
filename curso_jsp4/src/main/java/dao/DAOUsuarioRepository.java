@@ -34,7 +34,7 @@ public class DAOUsuarioRepository {
 			preparedSql.setString(2, objeto.getSenha());
 			preparedSql.setString(3, objeto.getNome());
 			preparedSql.setString(4, objeto.getEmail());
-			preparedSql.setLong(5, userLogado);
+			preparedSql.setLong(5, userLogado);//aula 51
 			
 			//executando a instrucao sql
 			preparedSql.execute();
@@ -59,7 +59,7 @@ public class DAOUsuarioRepository {
 		
 	}
 	
-	//aula 49
+	//aula 49 - aquela lista que aparece embaixo do formulario
 public List<ModelLogin> consultaUsuarioList(Long userLogado) throws Exception {
 		
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
