@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.ModelLogin;
 import java.io.IOException;
 import dao.DAOLoginRepository;
+import dao.DAOUsuarioRepository;
 
 
 @WebServlet(urlPatterns = {"/principal/ServltLogin", "/ServltLogin"})//atraves do action='ServletLogin' pegamos os dados do formulario
@@ -16,6 +17,7 @@ public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private DAOLoginRepository daoLoginRepository = new DAOLoginRepository();
+	private DAOUsuarioRepository daoUsuarioRepository = new DAOUsuarioRepository();//aula 52
        
     
     public ServletLogin() {
@@ -63,12 +65,17 @@ public class ServletLogin extends HttpServlet {
 				modelLogin.setSenha(senha);
 				
 				//se a senha e login for admin voce entra no sistema
-				if (modelLogin.getLogin().equalsIgnoreCase("admin") && modelLogin.getSenha().equalsIgnoreCase("admin")) {
+				if (daoLoginRepository.validarAutenticacao(modelLogin)) {
+					
+					//pesquisar no banco os dados do usuario para ver se e admin ou nao
+					modelLogin = daoUsuarioRepository.consultarUsuario(login);
 					
 					//mantendo o usuario logado no sistema
 					request.getSession().setAttribute("usuario", modelLogin.getLogin());
 					//cria um objeto de sessao--defini um atributo chamado usuario--objeto que associa o atributo 
 					//tudo isso armazenar informacoes do usuario naquela sessao
+					
+					request.getSession().setAttribute("isAdmin", modelLogin.getUseradmin());//aula 52
 					
 					//antes de redirecionar faz uma validacao dessa url
 					//caso o usuario tente acessar diretamente a pagina principal pela url, vai impedir pedindo para logar
