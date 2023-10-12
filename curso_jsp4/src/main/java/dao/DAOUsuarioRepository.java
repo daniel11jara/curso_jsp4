@@ -151,6 +151,7 @@ public ModelLogin consultarUsuarioLogado(String login) throws Exception {
 			modelLogin.setLogin(resultado.getString("login"));
 			modelLogin.setSenha(resultado.getString("senha"));
 			modelLogin.setNome(resultado.getString("nome"));
+			modelLogin.setUseradmin(resultado.getBoolean("useradmin"));//aula 52
 			
 		}
 		
