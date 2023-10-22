@@ -12,7 +12,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.DAOUsuarioRepository;
 
-//@WebServlet(urlPatterns = {"/ServletUsuarioController"})
+@WebServlet(urlPatterns = {"/ServletUsuarioController"})
 public class ServletUsuarioController extends ServletGenericUtil {
 	private static final long serialVersionUID = 1L;
 	
