@@ -5,10 +5,11 @@ import java.sql.Connection;
 
 import connection.SingleConnectionBanco;
 import dao.DAOUsuarioRepository;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class ServletGenericUtil  implements Serializable{
+public class ServletGenericUtil extends HttpServlet implements Serializable{
 
 	//aula 51
 	private static final long serialVersionUID = 1L;
